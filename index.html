@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For Sedilame ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fde2e4, #fff1f2);
+      font-family: "Georgia", serif;
+      text-align: center;
+      padding: 50px 20px;
+      color: #4a2c2a;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 2;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      background-color: #e63946;
+      color: white;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+    }
+
+    button:hover {
+      background-color: #d62839;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      color: rgba(230, 57, 70, 0.6);
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 id="title">Sedilame Rapelang Somane ❤️</h1>
+  <p id="text">
+    Even with miles between us,<br>
+    my heart always seems to know where yours is.
+  </p>
+
+  <button onclick="nextStep()">Continue</button>
+
+  <audio id="music" loop>
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let step = 0;
+    const music = document.getElementById("music");
+
+    function nextStep() {
+      step++;
+
+      if (step === 1) {
+        music.play();
+        text.innerHTML =
+          "Loving you from a distance hasn’t been easy…<br>but it has been beautiful.";
+      }
+      else if (step === 2) {
+        text.innerHTML =
+          "Every message from you,<br>every call, every laugh…<br>means more than you know.";
+      }
+      else if (step === 3) {
+        text.innerHTML =
+          "Until the day I get to see you again,<br>I carry you with me — always.";
+      }
+      else {
+        title.innerHTML = "One last question 💖";
+        text.innerHTML =
+          "<strong>Will you be my Valentine?</strong><br><br>" +
+          "<em>No matter the distance, my heart has already chosen you.</em>";
+        document.querySelector("button").style.display = "none";
+      }
+    }
+
+    // Create floating hearts
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }, 800);
+  </script>
+
+</body>
+</html>
