@@ -30,7 +30,7 @@
     }
 
     button {
-      margin-top: 30px;
+      margin-top: 20px;
       padding: 12px 30px;
       font-size: 18px;
       border-radius: 30px;
@@ -46,6 +46,44 @@
       background-color: #d62839;
     }
 
+    /* Fade texts */
+    #fadeText, #signature {
+      opacity: 0;
+      font-size: 22px;
+      margin-top: 30px;
+      transition: opacity 3s ease;
+      font-style: italic;
+    }
+
+    #signature {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    /* Hidden heart */
+    #secretHeart {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 1s ease;
+      z-index: 3;
+    }
+
+    #secretHeart:hover {
+      opacity: 1;
+    }
+
+    #hiddenName {
+      opacity: 0;
+      font-size: 16px;
+      margin-top: 5px;
+      transition: opacity 2s ease;
+      font-style: italic;
+    }
+
     /* Floating hearts */
     .heart {
       position: fixed;
@@ -56,14 +94,8 @@
     }
 
     @keyframes floatUp {
-      from {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(-110vh);
-        opacity: 0;
-      }
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-110vh); opacity: 0; }
     }
   </style>
 </head>
@@ -76,7 +108,20 @@
     my heart always seems to know where yours is.
   </p>
 
-  <button onclick="nextStep()">Continue</button>
+  <button id="continueBtn" onclick="nextStep()">Continue</button>
+
+  <div id="yesContainer" style="display:none;">
+    <button onclick="sayYes()">Yes 💖</button>
+  </div>
+
+  <div id="fadeText">I miss you.</div>
+  <div id="signature">— Your papie</div>
+
+  <!-- Secret heart -->
+  <div id="secretHeart" onclick="revealName()">
+    ❤️
+    <div id="hiddenName">Shammah</div>
+  </div>
 
   <audio id="music" loop>
     <source src="love.mp3" type="audio/mpeg">
@@ -107,11 +152,29 @@
         text.innerHTML =
           "<strong>Will you be my Valentine?</strong><br><br>" +
           "<em>No matter the distance, my heart has already chosen you.</em>";
-        document.querySelector("button").style.display = "none";
+        document.getElementById("continueBtn").style.display = "none";
+        document.getElementById("yesContainer").style.display = "block";
+
+        setTimeout(() => {
+          fadeText.style.opacity = 1;
+        }, 3000);
+
+        setTimeout(() => {
+          signature.style.opacity = 1;
+        }, 6000);
       }
     }
 
-    // Create floating hearts
+    function sayYes() {
+      const message = encodeURIComponent("Yes ❤️ I’ll be your Valentine.");
+      window.location.href = "https://wa.me/?text=" + message;
+    }
+
+    function revealName() {
+      document.getElementById("hiddenName").style.opacity = 1;
+    }
+
+    // Floating hearts
     setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -119,10 +182,7 @@
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.animationDuration = (5 + Math.random() * 5) + "s";
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 10000);
+      setTimeout(() => heart.remove(), 10000);
     }, 800);
   </script>
 
